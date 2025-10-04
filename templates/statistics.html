@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HackYeah2025 - Stats</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='stats.css') }}">
+</head>
+
+<body>
+  <!-- LOGO -->
+  <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo">
+
+  <!-- User Profile -->
+  <table>
+      <tr class="profile_picture">
+          <td>
+              <img src="{{ url_for('static', filename='account_circle.svg') }}" alt="profile_picture">
+          </td>
+          <td>
+              <a>USER <br>NAME <br></br>🔥14</a>
+          </td>
+      </tr>
+      <tr class="stats">
+          <td colspan="2" class="center-cell">
+              <img src="{{ url_for('static', filename='user_stats.png') }}" alt="profile_picture">
+          </td>
+      </tr>
+  </table>
+
+  <!-- NAV BAR -->
+  <div class="nav-bar">
+    <a href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='home.svg') }}" alt="home">
+    </a>
+    <a href="{{ url_for('statistics') }}">
+        <img src="../static/statistics.svg" alt="stats">
+    </a>
+  </div>
+</body>
+</html>
