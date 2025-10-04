@@ -3,9 +3,7 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    playlists = [
+playlists = [
         {
             'name': 'Wild Dances',
             'colors': [
@@ -44,12 +42,16 @@ def home():
         }
     ]
 
-    explore = [
+explore = [
         {'name': 'Funky HIIT'},
         {'name': 'POPs Cardio'}
         # {'name': 'Rock Strength'},
         # {'name': 'Chill Yoga'}
     ]
+
+@app.route('/')
+def home():
+
     return render_template('index.html',
                            title='Home',
                            week=calendar_data(),
@@ -74,6 +76,33 @@ def calendar_data():
         today += timedelta(days=1)
     return weekdays
 
+
+@app.route('/training')
+def training():
+    return render_template('index.html',
+                           title='Home',
+                           week=calendar_data(),
+                           today=datetime.today().date().day,
+                           playlists=playlists,
+                           explore=explore)
+
+@app.route('/statistics')
+def statistics():
+    return render_template('index.html',
+                           title='Home',
+                           week=calendar_data(),
+                           today=datetime.today().date().day,
+                           playlists=playlists,
+                           explore=explore)
+
+@app.route('/settings')
+def settings():
+    return render_template('index.html',
+                           title='Home',
+                           week=calendar_data(),
+                           today=datetime.today().date().day,
+                           playlists=playlists,
+                           explore=explore)
 
 if __name__ == '__main__':
     app.run(debug=True)
