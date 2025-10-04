@@ -5,17 +5,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    week = calendar_date()
-    today = datetime.today().date().day
-    print("Week data:", week)  # Debug - sprawdź w konsoli
-    print("Length:", len(week))
-    print("Today: ", today)
     return render_template('index.html',
                            title='Home',
-                           week=week,
-                           today=today)
+                           week=calendar_data(),
+                           today=datetime.today().date().day)
 
-def calendar_date():
+def calendar_data():
     today = datetime.today()
     weekday = today.weekday()
     cnt = 0
@@ -25,7 +20,10 @@ def calendar_date():
         cnt += 1
     weekdays = []
     for i in range(7):
-        weekdays.append((today.day, today.strftime('%a')))
+        done = today.day % 2
+        if today.day >= datetime.today().weekday():
+            done = 0
+        weekdays.append((today.day, today.strftime('%a'), done, today.weekday()))
         today += timedelta(days=1)
     return weekdays
 
