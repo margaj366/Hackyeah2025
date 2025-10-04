@@ -5,10 +5,57 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    playlists = [
+        {
+            'name': 'Wild Dances',
+            'colors': [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+            ]
+        },
+        {
+            'name': 'Cooldown Beats',
+            'colors': [
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+            ]
+        },
+        {
+            'name': 'Summer Vibes',
+            'colors': [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+            ]
+        },
+        {
+            'name': 'Workout Power',
+            'colors': [
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+            ]
+        }
+    ]
+
+    explore = [
+        {'name': 'Funky HIIT'},
+        {'name': 'POPs Cardio'}
+        # {'name': 'Rock Strength'},
+        # {'name': 'Chill Yoga'}
+    ]
     return render_template('index.html',
                            title='Home',
                            week=calendar_data(),
-                           today=datetime.today().date().day)
+                           today=datetime.today().date().day,
+                           playlists=playlists,
+                           explore=explore)
 
 def calendar_data():
     today = datetime.today()
