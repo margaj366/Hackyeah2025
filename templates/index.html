@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HackYeah2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+</head>
+<body>
+    <div class="week-container">
+        <h1 class="week-title">THIS WEEK</h1>
+        <div class="days-grid">
+            {% for day in week %}
+            <div class="day-item {% if day[0] == today %}today{% elif day[2] == 1 %}done{% elif day[3] > today %}future{% endif %}">
+<!--                <span class="day-name">{{ day[1] }}</span>-->
+                <div class="day-circle">{% if day[2] == 1 %}{%else%}{{ day[0] }} {% endif %}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

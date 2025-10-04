@@ -1,0 +1,148 @@
+/* ---------- CSS RESET ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+            font-family: 'Bebas Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .week-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: .5rem;
+            padding-bottom: 1rem;
+            background: #e3e6ec;
+            border-radius: 2rem;
+        }
+
+        .week-title {
+            text-align: center;
+            /*padding-left: 7rem;*/
+            color: black;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .days-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0 2rem;
+            flex-wrap: wrap;
+        }
+
+        .day-item {
+            display: flex;
+            flex: 1;
+            min-width: 80px;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .day-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /*.day-name {*/
+        /*    color: black;*/
+        /*    font-size: 0.9rem;*/
+        /*    font-weight: 500;*/
+        /*    text-transform: uppercase;*/
+        /*    letter-spacing: 1px;*/
+        /*}*/
+
+        .day-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: black;
+            /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);*/
+            transition: all 0.3s ease;
+        }
+
+        .day-item:hover .day-circle {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .day-item.today .day-circle {
+            background: none;
+            color: #350170;
+            box-shadow: 0 6px 25px #350170;
+        }
+
+        .day-item.today .day-name {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .day-item.future .day-circle {
+            background: none;
+            color: #a6a6a6;
+            /*box-shadow: 0 6px 25px #a6a6a6;*/
+        }
+
+        .day-item.future .day-name {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .day-item.done .day-circle {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #ffffff;
+            background: #802e56;
+            box-shadow: 0 6px 25px #802e56;
+        }
+
+        .day-item.done .day-name {
+            color: #fff;
+            font-weight: 700;
+        }
+        .day-item.done .day-circle::before {
+            content: '✓';
+            position: absolute;
+            font-size: 2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .days-grid {
+                gap: 1rem;
+            }
+
+            .day-circle {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
+            }
+
+            .day-name {
+                font-size: 0.75rem;
+            }
+
+            .week-title {
+                font-size: 1.5rem;
+            }
+        }
