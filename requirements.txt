@@ -10,5 +10,8 @@ wheel>=0.38.0
 # Biblioteka madmom
 madmom==0.16.1
 
+# Nasz kochant Flask
+flask
+
 # (opcjonalnie) narzędzia audio
 ffmpeg-python
