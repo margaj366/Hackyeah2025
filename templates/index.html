@@ -6,10 +6,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/style.css">
-<!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- Animated Wave Header -->
+    <div class="wave-header">
+        <svg class="wave-svg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="wave1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#4facfe;stop-opacity:0.8" />
+                    <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:0.6" />
+                </linearGradient>
+                <linearGradient id="wave2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#fa709a;stop-opacity:0.7" />
+                    <stop offset="100%" style="stop-color:#fee140;stop-opacity:0.5" />
+                </linearGradient>
+                <linearGradient id="wave3" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.6" />
+                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.4" />
+                </linearGradient>
+            </defs>
+            <path class="wave wave1" d="M0,100 Q300,50 600,100 T1200,100 L1200,200 L0,200 Z" fill="url(#wave1)"></path>
+            <path class="wave wave2" d="M0,120 Q400,80 800,120 T1200,120 L1200,200 L0,200 Z" fill="url(#wave2)"></path>
+            <path class="wave wave3" d="M0,140 Q500,100 1000,140 T1200,140 L1200,200 L0,200 Z" fill="url(#wave3)"></path>
+        </svg>
+    </div>
     <div class="week-container">
         <h1 class="week-title">THIS WEEK</h1>
         <div class="days-grid">
@@ -19,6 +40,67 @@
                 <div class="day-circle">{% if day[2] == 1 %}{%else%}{{ day[0] }} {% endif %}</div>
             </div>
             {% endfor %}
+        </div>
+    </div>
+
+    <!-- Playlists Section -->
+    <div class="section">
+        <h2 class="section-title">YOUR PLAYLISTS</h2>
+        <div class="scrollable-grid">
+            {% for playlist in playlists %}
+            <div class="card">
+                <div class="card-images">
+                    {% for color in playlist.colors %}
+                    <div class="card-image" style="background: {{ color }};"></div>
+                    {% endfor %}
+                </div>
+                <div class="card-title">{{ playlist.name }}</div>
+            </div>
+            {% endfor %}
+
+            <div class="card add-new">
+                <div class="add-icon">+</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explore Section -->
+    <div class="section">
+        <h2 class="section-title">EXPLORE</h2>
+        <div class="cards-grid">
+            {% for item in explore %}
+            <div class="card explore-card">
+                <div class="waveform">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <div class="explore-title">{{ item.name }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item">
+            <div class="nav-icon">🏋️</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">🧭</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">📊</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">⚙️</div>
         </div>
     </div>
 </body>
