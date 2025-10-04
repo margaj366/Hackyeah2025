@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
 /* ---------- CSS RESET ---------- */
  *, *::before, *::after {
      box-sizing: border-box;
@@ -9,11 +11,18 @@
      padding: 0;
      box-sizing: border-box;
 }
+/* .lilita-one-regular {*/
+/*  font-family: "Lilita One", sans-serif;*/
+/*  font-weight: 400;*/
+/*  font-style: normal;*/
+/*}*/
+
  body {
-    /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    */
+     /*font-family: lilita-one-regular, sans-serif;*/
+    /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+    /*font-family: "Lilita One", sans-serif;*/
      /*font-family: 'Bebas Neue', sans-serif;*/
-     font-family: Roboto, "Helvetica Neue", sans-serif;
+     /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
      background: #ffffff;
      min-height: 100vh;
      /*padding: 2rem;*/
