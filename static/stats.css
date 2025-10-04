@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+/* ---------- CSS RESET ---------- */
+ *, *::before, *::after {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+}
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+/* .lilita-one-regular {*/
+/*  font-family: "Lilita One", sans-serif;*/
+/*  font-weight: 400;*/
+/*  font-style: normal;*/
+/*}*/
+
+ body {
+     /*font-family: lilita-one-regular, sans-serif;*/
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*font-family: "Lilita One", sans-serif;*/
+     /*font-family: 'Bebas Neue', sans-serif;*/
+     /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
+     background: #ffffff;
+     min-height: 100vh;
+     /*padding: 2rem;*/
+}
+
+ img {
+     top: 0;
+     max-width: 100%;
+     position: relative;
+ }
+
+/* --------- Profile -----------*/
+
+table {
+    position: absolute;
+    width: 100%;
+}
+
+.profile_picture td img {
+    filter: brightness(0) saturate(100%) invert(26%) sepia(27%) saturate(1287%) hue-rotate(278deg) brightness(91%) contrast(97%);
+    height: 30vh;
+    width: 30vh;
+}
+.profile_picture td a {
+    height: 25vh;
+    width: 30vh;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.center-cell {
+  text-align: center;   /* horizontal */
+  padding: 1rem 0;      /* optional vertical breathing room */
+}
+
+.stats td img {
+  width: 60vw;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- NAV-BAR ---------- */
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: #a6a6a6 solid 20px;
+    border-radius: 15px;
+    background: #e3e6ec;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    height: 10vh;
+}
+
+.nav-bar a {
+    z-index: 100000;
+    height: 80%;
+    flex: 1;
+    text-align: center;
+}
+
+.nav-bar a img {
+    filter: brightness(0) saturate(100%);
+    z-index: 100000;
+    height: 80%;
+    flex: 1;
+    text-align: center;
+}
+

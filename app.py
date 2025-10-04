@@ -270,14 +270,11 @@ def training_api(playlist):  # <-- zmieniona nazwa funkcji
 #                            playlists=playlists,
 #                            explore=explore)
 #
-# @app.route('/statistics')
-# def statistics():
-#     return render_template('index.html',
-#                            title='Home',
-#                            week=calendar_data(),
-#                            today=datetime.today().date().day,
-#                            playlists=playlists,
-#                            explore=explore)
+@app.route('/statistics')
+def statistics():
+    return render_template('statistics.html',
+                           title='Home',
+                           )
 #
 # @app.route('/settings')
 # def settings():
@@ -291,9 +288,6 @@ def training_api(playlist):  # <-- zmieniona nazwa funkcji
 def training():
     return '', 204
 
-@app.route('/statistics')
-def statistics():
-    return '', 204
 
 @app.route('/settings')
 def settings():
