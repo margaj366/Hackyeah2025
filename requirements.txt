@@ -1,8 +1,8 @@
 # Wymagana wersja Pythona
-python_version >= "3.8" and python_version < "3.11"
+Cython>=0.29.33; python_version >= "3.8" and python_version < "3.11"
+
 
 # Podstawowe biblioteki do kompilacji i działania madmom
-Cython>=0.29.33
 numpy>=1.23.0,<1.26
 setuptools>=65.0.0
 wheel>=0.38.0
