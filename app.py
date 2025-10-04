@@ -46,9 +46,9 @@ def home():
 
     explore = [
         {'name': 'Funky HIIT'},
-        {'name': 'POP Queens Cardio'},
-        {'name': 'Rock Strength'},
-        {'name': 'Chill Yoga'}
+        {'name': 'POPs Cardio'}
+        # {'name': 'Rock Strength'},
+        # {'name': 'Chill Yoga'}
     ]
     return render_template('index.html',
                            title='Home',
