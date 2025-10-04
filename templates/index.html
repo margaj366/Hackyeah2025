@@ -33,7 +33,7 @@
         <h2 class="section-title">YOUR PLAYLISTS</h2>
         <div class="scrollable-grid">
             {% for playlist in playlists %}
-            <div class="card">
+            <div class="card playlist">
                 <div class="card-images">
                     {% for color in playlist.colors %}
                     <div class="card-image" style="background: {{ color }};"></div>
@@ -74,10 +74,18 @@
     </div>
     <!--  Nav-bar section  -->
     <div class="nav-bar">
+    <a href="{{ url_for('home') }}">
         <img src="../static/home.svg" alt="home">
+    </a>
+    <a href="{{ url_for('training') }}">
         <img src="../static/weight_bar.svg" alt="weights">
+    </a>
+    <a href="{{ url_for('statistics') }}">
         <img src="../static/statistics.svg" alt="stats">
+    </a>
+    <a href="{{ url_for('settings') }}">
         <img src="../static/settings.svg" alt="settings">
-    </div>
+    </a>
+</div>
 </body>
 </html>

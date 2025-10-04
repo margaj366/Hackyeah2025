@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HackYeah2025</title>
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+</head>
+<body>
+    <img src="../static/logo.svg" alt="logo">
+    <div class="week-container">
+        <h1 class="week-title">THIS WEEK</h1>
+        <div class="days-grid">
+            {% for day in week %}
+            <div class="day-item {% if day[0] == today %}today{% elif day[2] == 1 %}done{% elif day[3] > today %}future{% endif %}">
+<!--                <span class="day-name">{{ day[1] }}</span>-->
+                <div class="day-circle">{% if day[2] == 1 %}{%else%}{{ day[0] }} {% endif %}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!--  Nav-bar section  -->
+    <div class="nav-bar">
+        <a href="{{ url_for('home') }}">
+            <img src="../static/home.svg" alt="home">
+        </a>
+        <a href="{{ url_for('training') }}">
+            <img src="../static/weight_bar.svg" alt="weights">
+        </a>
+        <a href="{{ url_for('statistics') }}">
+            <img src="../static/statistics.svg" alt="stats">
+        </a>
+        <a href="{{ url_for('settings') }}">
+            <img src="../static/settings.svg" alt="settings">
+        </a>
+    </div>
+
+
+    <!--  Nav-bar section  -->
+    <div class="nav-bar">
+        <img src="../static/home.svg" alt="home">
+        <img class="clickable" href="{{ url_for('training') }}" src="../static/weight_bar.svg" alt="weights">
+        <img src="../static/statistics.svg" alt="stats">
+        <img src="../static/settings.svg" alt="settings">
+    </div>
+</body>
+</html>
