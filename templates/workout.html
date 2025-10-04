@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Workout Player</title>
+<script src="https://unpkg.com/lottie-web@latest/build/player/lottie.min.js"></script>
   <style>
     body { font-family: Arial; text-align: center; padding: 40px; }
     #exercise { font-size: 2em; margin-top: 20px; }
     #timer { font-size: 1.5em; color: #555; }
-    /* prosty spinner */
     .spinner {
       border: 5px solid #f3f3f3;
       border-top: 5px solid #4CAF50;
@@ -25,48 +25,61 @@
 </head>
 <body>
   <h1>Playlist: {{ playlist }}</h1>
-  <audio id="player" controls></audio>
-  <div id="song"></div>
-  <div id="exercise"></div>
-  <div id="timer"></div>
 
-  <button id="startBtn">▶️ Start Workout</button>
+  <div id="anim"></div>
 
-  <div id="loading">
-    <div class="spinner"></div>
-    <p>Analyzing your songs... Please wait 🎧</p>
+  <div id="start-screen">
+    <h2>Ready to start your workout?</h2>
+    <button id="beginBtn" style="
+      background-color: #43e97b;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    ">▶️ Start Workout</button>
+  </div>
+
+  <div id="workout" style="display:none;">
+    <audio id="player" controls></audio>
+    <div id="song"></div>
+    <div id="exercise"></div>
+    <div id="timer"></div>
   </div>
 
   <script>
+    lottie.loadAnimation({
+      container: document.getElementById('anim'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: "{{ url_for('static', filename=anim_file) }}"
+    });
+
+    const plan = {{ plan | tojson | safe }};
     const playlist = "{{ playlist }}";
     const exerciseLength = parseInt("{{ length }}");
 
-    const startBtn = document.getElementById('startBtn');
-    const loadingDiv = document.getElementById('loading');
+    const player = document.getElementById('player');
+    const songDiv = document.getElementById('song');
+    const exerciseDiv = document.getElementById('exercise');
+    const timerDiv = document.getElementById('timer');
+    const startScreen = document.getElementById('start-screen');
+    const workoutDiv = document.getElementById('workout');
+    const beginBtn = document.getElementById('beginBtn');
 
-    startBtn.addEventListener('click', startWorkout);
+    beginBtn.addEventListener('click', () => {
+      startScreen.style.display = 'none';
+      workoutDiv.style.display = 'block';
+      startWorkout();
+    });
 
     async function startWorkout() {
-      // 🔹 pokaż komunikat "Analyzing..."
-      startBtn.disabled = true;
-      loadingDiv.style.display = "block";
-
-      // 🔹 pobierz plan treningowy z backendu
-      const res = await fetch(`/training/${playlist}?length=${exerciseLength}`);
-      const plan = await res.json();
-
-      // 🔹 ukryj komunikat po zakończeniu analizy
-      loadingDiv.style.display = "none";
-
-      const player = document.getElementById('player');
-      const songDiv = document.getElementById('song');
-      const exerciseDiv = document.getElementById('exercise');
-      const timerDiv = document.getElementById('timer');
-
-      // 🔹 rozpocznij trening
-      for (const [song, exercises] of Object.entries(plan)) {
+      for (const [song, exercises] of plan) {
         songDiv.textContent = `🎵 Now playing: ${song}`;
-        player.src = `/songs/${playlist}/${song}`;
+        player.src = `/songs/{{ playlist }}/${song}`;
         await player.play();
 
         for (const ex of exercises) {
@@ -81,10 +94,10 @@
         player.pause();
       }
 
-      exerciseDiv.textContent = "✅ Workout complete!";
+      exerciseDiv.textContent = "Workout complete!";
       timerDiv.textContent = "";
-      startBtn.disabled = false;
     }
   </script>
 </body>
+
 </html>

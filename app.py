@@ -1,5 +1,6 @@
-from flask import Flask, render_template, jsonify, request, send_from_directory
-
+from flask import Flask, render_template, jsonify, request, send_from_directory, session
+from datetime import timedelta
+from collections import OrderedDict
 import collections
 import math
 from mutagen import File
@@ -33,11 +34,11 @@ def generate_training_plan(playlist_name, exercise_length):
     # Path to the playlist
     folder = f"playlists/{playlist_name}"
 
-    warmup_songs = {}
-    training_songs = {}
-    post_training_songs = {}
+    warmup_songs = OrderedDict()
+    training_songs = OrderedDict()
+    post_training_songs = OrderedDict()
 
-    training_plan = {}
+    training_plan = OrderedDict()
 
     # Create madmom processor
     beat_proc = madmom.features.beats.RNNBeatProcessor()
@@ -101,84 +102,21 @@ def generate_training_plan(playlist_name, exercise_length):
                 exercise_list.append(random.choice(exercise_60))
         training_plan[song] = exercise_list
 
-    return training_plan
+    return list(training_plan.items())
 
 
 app = Flask(__name__)
+app.secret_key = "super_secret_key"
+app.permanent_session_lifetime = timedelta(minutes=30)
 
-# @app.route('/')
-# def home():
-#     return render_template('dance.html', anim_file="Split Jump Exercise.json")
 
 PLAYLISTS_DIR = "playlists"
-#
-# @app.route('/')
-# def home():
-#     playlists = [d for d in os.listdir(PLAYLISTS_DIR) if os.path.isdir(os.path.join(PLAYLISTS_DIR, d))]
-#     return render_template("index.html", playlists=playlists)
-#
-# @app.route("/workout/<playlist>")
-# def workout(playlist):
-#     length = request.args.get("length", 30)
-#     return render_template("workout.html", playlist=playlist, length=length)
-#
-# @app.route("/songs/<playlist>/<filename>")
-# def serve_song(playlist, filename):
-#     folder_path = os.path.join("playlists", playlist)
-#     return send_from_directory(folder_path, filename)
-#
-# @app.route("/training/<playlist>")
-# def training(playlist):
-#     exercise_length = request.args.get("length", 30)
-#     plan = generate_training_plan(playlist, exercise_length)
-#     return jsonify(plan)
 
-# @app.route("/training")
-# def training():
-#     return jsonify(training_plan)
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime, timedelta
 
 
 # playlists = [d for d in os.listdir(PLAYLISTS_DIR) if os.path.isdir(os.path.join(PLAYLISTS_DIR, d))]
-# playlists = [
-#         {
-#             'name': 'Wild Dances',
-#             'colors': [
-#                 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-#                 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-#                 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-#                 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-#             ]
-#         },
-#         {
-#             'name': 'Cooldown Beats',
-#             'colors': [
-#                 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-#                 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-#                 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-#                 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
-#             ]
-#         },
-#         {
-#             'name': 'Summer Vibes',
-#             'colors': [
-#                 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-#                 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-#                 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-#                 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-#             ]
-#         },
-#         {
-#             'name': 'Workout Power',
-#             'colors': [
-#                 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-#                 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-#                 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-#                 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
-#             ]
-#         }
-#     ]
 
 PLAYLISTS_DIR = "playlists"
 
@@ -250,15 +188,44 @@ def calendar_data():
     return weekdays
 
 @app.route("/playlist/<playlist>")
-def workout(playlist):
+def show_playlist(playlist):
     length = request.args.get("length", 30)
-    return render_template("playlist.html", playlist=playlist, length=length)
+    plan = generate_training_plan(playlist, length)
+
+    # zapisz plan do sesji (jako JSON)
+    session["last_plan"] = plan
+    session["last_playlist"] = playlist
+    session["last_length"] = length
+
+    return render_template("playlist.html", playlist=playlist, plan=plan, length=length)
+# def workout(playlist):
+#     length = request.args.get("length", 30)
+#     plan = generate_training_plan(playlist, length)
+#     return render_template("playlist.html", playlist=playlist, plan= plan, length=length)
 
 @app.route("/training/<playlist>")
 def training_api(playlist):  # <-- zmieniona nazwa funkcji
     exercise_length = request.args.get("length", 30)
     plan = generate_training_plan(playlist, exercise_length)
     return jsonify(plan)
+
+@app.route("/workout/<playlist>", endpoint="workout_page")
+def workout(playlist):
+    # pobierz dane z sesji, jeśli istnieją
+    plan = session.get("last_plan")
+    length = session.get("last_length", 30)
+    saved_playlist = session.get("last_playlist")
+
+    if not plan or saved_playlist != playlist:
+        # fallback – jeśli użytkownik wszedł tu bez wcześniejszego planu
+        plan = generate_training_plan(playlist, length)
+
+    return render_template("workout.html", playlist=playlist, plan=plan, length=length, anim_file="animations/training.json")
+
+@app.route("/songs/<playlist>/<filename>")
+def serve_song(playlist, filename):
+    folder = os.path.join("playlists", playlist)
+    return send_from_directory(folder, filename)
 
 #
 # @app.route('/training')
