@@ -1,119 +1,208 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Choose Playlist</title>-->
+<!--  <style>-->
+<!--    body { font-family: Arial; text-align: center; padding: 40px; }-->
+<!--    h1 { color: #333; }-->
+<!--    .playlist-btn {-->
+<!--      background: #4CAF50; color: white; padding: 10px 20px;-->
+<!--      border: none; border-radius: 10px; margin: 10px;-->
+<!--      cursor: pointer; font-size: 1.2em;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;  <h1>Choose your playlist</h1>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  {% for p in playlists %}&ndash;&gt;-->
+<!--&lt;!&ndash;    <button class="playlist-btn" onclick="selectPlaylist('{{ p }}')">{{ p }}</button>&ndash;&gt;-->
+<!--&lt;!&ndash;  {% endfor %}&ndash;&gt;-->
+
+<!--  <script>-->
+<!--    function selectPlaylist(name) {-->
+<!--      const length = prompt("Enter exercise duration in seconds:", "30");-->
+<!--      if (!length) return;-->
+<!--      window.location.href = `/workout/${name}?length=${length}`;-->
+<!--    }-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>HackYeah2025</title>-->
+<!--&lt;!&ndash;    <link rel="preconnect" href="https://fonts.googleapis.com">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">&ndash;&gt;-->
+
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">-->
+
+<!--    <link rel="stylesheet" href="../static/style.css">-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--    <img src="../static/logo.svg" alt="logo">-->
+<!--    <div class="week-container">-->
+<!--        <h1 class="week-title">THIS WEEK</h1>-->
+<!--        <div class="days-grid">-->
+<!--            {% for day in week %}-->
+<!--            <div class="day-item {% if day[0] == today %}today{% elif day[2] == 1 %}done{% elif day[3] > today %}future{% endif %}">-->
+<!--&lt;!&ndash;                <span class="day-name">{{ day[1] }}</span>&ndash;&gt;-->
+<!--                <div class="day-circle">{% if day[2] == 1 %}{%else%}{{ day[0] }} {% endif %}</div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Playlists Section &ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="section">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2 class="section-title">YOUR PLAYLISTS</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="scrollable-grid">&ndash;&gt;-->
+<!--&lt;!&ndash;            {% for playlist in playlists %}&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="card playlist">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="card-images">&ndash;&gt;-->
+<!--&lt;!&ndash;                    {% for color in playlist.colors %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="card-image" style="background: {{ color }};"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {% endfor %}&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="card-title">{{ playlist.name }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            {% endfor %}&ndash;&gt;-->
+<!--    <div class="section">-->
+<!--  <h2 class="section-title">YOUR PLAYLISTS</h2>-->
+<!--  <div class="scrollable-grid">-->
+<!--    {% for playlist in playlists %}-->
+<!--            <div class="card playlist">-->
+<!--                <div class="card-images">-->
+<!--                    {% for color in playlist.colors %}-->
+<!--                    <div class="card-image" style="background: {{ color }};"></div>-->
+<!--                    {% endfor %}-->
+<!--                </div>-->
+<!--                <div class="card-title">{{ playlist.name }}</div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+
+<!--            <div class="card add-new">-->
+<!--                <div class="add-icon">+</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Explore Section &ndash;&gt;-->
+<!--    <div class="section">-->
+<!--        <h2 class="section-title">EXPLORE</h2>-->
+<!--        <div class="cards-grid">-->
+<!--            {% for item in explore %}-->
+<!--            <div class="card explore-card">-->
+<!--                <div class="waveform">-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                    <div class="wave-bar"></div>-->
+<!--                </div>-->
+<!--                <div class="explore-title">{{ item.name }}</div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;  Nav-bar section  &ndash;&gt;-->
+<!--    <div class="nav-bar">-->
+<!--    <a href="{{ url_for('home') }}">-->
+<!--        <img src="../static/home.svg" alt="home">-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a href="{{ url_for('training') }}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <img src="../static/weight_bar.svg" alt="weights">&ndash;&gt;-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a href="{{ url_for('statistics') }}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <img src="../static/statistics.svg" alt="stats">&ndash;&gt;-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a href="{{ url_for('settings') }}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <img src="../static/settings.svg" alt="settings">&ndash;&gt;-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Choose Playlist</title>
-  <style>
-    body { font-family: Arial; text-align: center; padding: 40px; }
-    h1 { color: #333; }
-    .playlist-btn {
-      background: #4CAF50; color: white; padding: 10px 20px;
-      border: none; border-radius: 10px; margin: 10px;
-      cursor: pointer; font-size: 1.2em;
-    }
-  </style>
+  <title>HackYeah2025</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-  <h1>Choose your playlist</h1>
+  <!-- LOGO -->
+  <img src="{{ url_for('static', filename='logo.svg') }}" alt="logo">
 
-  {% for p in playlists %}
-    <button class="playlist-btn" onclick="selectPlaylist('{{ p }}')">{{ p }}</button>
-  {% endfor %}
-
-  <script>
-    function selectPlaylist(name) {
-      const length = prompt("Enter exercise duration in seconds:", "30");
-      if (!length) return;
-      window.location.href = `/workout/${name}?length=${length}`;
-    }
-  </script>
-</body>
-</html>
-    <meta charset="UTF-8">
-    <title>HackYeah2025</title>
-<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
-<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
-<!--    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">-->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../static/style.css">
-<!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
-</head>
-<body>
-    <img src="../static/logo.svg" alt="logo">
-    <div class="week-container">
-        <h1 class="week-title">THIS WEEK</h1>
-        <div class="days-grid">
-            {% for day in week %}
-            <div class="day-item {% if day[0] == today %}today{% elif day[2] == 1 %}done{% elif day[3] > today %}future{% endif %}">
-<!--                <span class="day-name">{{ day[1] }}</span>-->
-                <div class="day-circle">{% if day[2] == 1 %}{%else%}{{ day[0] }} {% endif %}</div>
-            </div>
-            {% endfor %}
-        </div>
+  <!-- WEEK SECTION -->
+  <div class="week-container">
+    <h1 class="week-title">THIS WEEK</h1>
+    <div class="days-grid">
+      {% for day in week %}
+      <div class="day-item {% if day[0] == today %}today{% elif day[2] == 1 %}done{% elif day[3] > today %}future{% endif %}">
+        <div class="day-circle">{% if day[2] == 1 %}{% else %}{{ day[0] }}{% endif %}</div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 
-    <!-- Playlists Section -->
-    <div class="section">
-        <h2 class="section-title">YOUR PLAYLISTS</h2>
-        <div class="scrollable-grid">
-            {% for playlist in playlists %}
-            <div class="card playlist">
-                <div class="card-images">
-                    {% for color in playlist.colors %}
-                    <div class="card-image" style="background: {{ color }};"></div>
-                    {% endfor %}
-                </div>
-                <div class="card-title">{{ playlist.name }}</div>
-            </div>
-            {% endfor %}
-
-            <div class="card add-new">
-                <div class="add-icon">+</div>
-            </div>
+  <!-- PLAYLISTS SECTION -->
+  <div class="section">
+    <h2 class="section-title">YOUR PLAYLISTS</h2>
+    <div class="scrollable-grid">
+      {% for playlist in playlists %}
+      <a href="{{ url_for('workout', playlist=playlist.name) }}" class="card playlist" style="text-decoration:none; color:inherit;">
+        <div class="card-images">
+          {% for color in playlist.colors %}
+            <div class="card-image" style="background: {{ color }};"></div>
+          {% endfor %}
         </div>
+        <div class="card-title">{{ playlist.name }}</div>
+      </a>
+    {% endfor %}
+      <div class="card add-new">
+        <div class="add-icon">+</div>
+      </div>
     </div>
+  </div>
 
-    <!-- Explore Section -->
-    <div class="section">
-        <h2 class="section-title">EXPLORE</h2>
-        <div class="cards-grid">
-            {% for item in explore %}
-            <div class="card explore-card">
-                <div class="waveform">
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                </div>
-                <div class="explore-title">{{ item.name }}</div>
-            </div>
-            {% endfor %}
+  <!-- EXPLORE SECTION -->
+  <div class="section">
+    <h2 class="section-title">EXPLORE</h2>
+    <div class="cards-grid">
+      {% for item in explore %}
+      <div class="card explore-card">
+        <div class="waveform">
+          {% for i in range(10) %}
+          <div class="wave-bar"></div>
+          {% endfor %}
         </div>
+        <div class="explore-title">{{ item.name }}</div>
+      </div>
+      {% endfor %}
     </div>
-    <!--  Nav-bar section  -->
-    <div class="nav-bar">
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="nav-bar">
     <a href="{{ url_for('home') }}">
-        <img src="../static/home.svg" alt="home">
+      <img src="{{ url_for('static', filename='home.svg') }}" alt="home">
     </a>
-    <a href="{{ url_for('training') }}">
-        <img src="../static/weight_bar.svg" alt="weights">
-    </a>
-    <a href="{{ url_for('statistics') }}">
-        <img src="../static/statistics.svg" alt="stats">
-    </a>
-    <a href="{{ url_for('settings') }}">
-        <img src="../static/settings.svg" alt="settings">
-    </a>
-</div>
+  </div>
 </body>
 </html>

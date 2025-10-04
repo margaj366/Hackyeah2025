@@ -111,27 +111,27 @@ app = Flask(__name__)
 #     return render_template('dance.html', anim_file="Split Jump Exercise.json")
 
 PLAYLISTS_DIR = "playlists"
-
-@app.route('/')
-def home():
-    playlists = [d for d in os.listdir(PLAYLISTS_DIR) if os.path.isdir(os.path.join(PLAYLISTS_DIR, d))]
-    return render_template("index.html", playlists=playlists)
-
-@app.route("/workout/<playlist>")
-def workout(playlist):
-    length = request.args.get("length", 30)
-    return render_template("workout.html", playlist=playlist, length=length)
-
-@app.route("/songs/<playlist>/<filename>")
-def serve_song(playlist, filename):
-    folder_path = os.path.join("playlists", playlist)
-    return send_from_directory(folder_path, filename)
-
-@app.route("/training/<playlist>")
-def training(playlist):
-    exercise_length = request.args.get("length", 30)
-    plan = generate_training_plan(playlist, exercise_length)
-    return jsonify(plan)
+#
+# @app.route('/')
+# def home():
+#     playlists = [d for d in os.listdir(PLAYLISTS_DIR) if os.path.isdir(os.path.join(PLAYLISTS_DIR, d))]
+#     return render_template("index.html", playlists=playlists)
+#
+# @app.route("/workout/<playlist>")
+# def workout(playlist):
+#     length = request.args.get("length", 30)
+#     return render_template("workout.html", playlist=playlist, length=length)
+#
+# @app.route("/songs/<playlist>/<filename>")
+# def serve_song(playlist, filename):
+#     folder_path = os.path.join("playlists", playlist)
+#     return send_from_directory(folder_path, filename)
+#
+# @app.route("/training/<playlist>")
+# def training(playlist):
+#     exercise_length = request.args.get("length", 30)
+#     plan = generate_training_plan(playlist, exercise_length)
+#     return jsonify(plan)
 
 # @app.route("/training")
 # def training():
@@ -139,46 +139,81 @@ def training(playlist):
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime, timedelta
 
-app = Flask(__name__)
 
-playlists = [
-        {
-            'name': 'Wild Dances',
-            'colors': [
-                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-            ]
-        },
-        {
-            'name': 'Cooldown Beats',
-            'colors': [
-                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
-            ]
-        },
-        {
-            'name': 'Summer Vibes',
-            'colors': [
-                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-            ]
-        },
-        {
-            'name': 'Workout Power',
-            'colors': [
-                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
-            ]
-        }
+# playlists = [d for d in os.listdir(PLAYLISTS_DIR) if os.path.isdir(os.path.join(PLAYLISTS_DIR, d))]
+# playlists = [
+#         {
+#             'name': 'Wild Dances',
+#             'colors': [
+#                 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+#                 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+#                 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+#                 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+#             ]
+#         },
+#         {
+#             'name': 'Cooldown Beats',
+#             'colors': [
+#                 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+#                 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+#                 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+#                 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+#             ]
+#         },
+#         {
+#             'name': 'Summer Vibes',
+#             'colors': [
+#                 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+#                 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+#                 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+#                 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+#             ]
+#         },
+#         {
+#             'name': 'Workout Power',
+#             'colors': [
+#                 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+#                 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+#                 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+#                 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
+#             ]
+#         }
+#     ]
+
+PLAYLISTS_DIR = "playlists"
+
+GRADIENTS = [
+    [
+        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+    ],
+    [
+        'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+        'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+        'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+        'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'
     ]
+]
+
+# --- dynamiczne przypisywanie nazw i kolorów ---
+def get_playlists():
+    folder_names = [
+        d for d in os.listdir(PLAYLISTS_DIR)
+        if os.path.isdir(os.path.join(PLAYLISTS_DIR, d))
+    ]
+
+    playlists = []
+    for i, name in enumerate(folder_names):
+        # przypisanie kolorów cyklicznie (jeśli folderów więcej niż zestawów)
+        color_scheme = GRADIENTS[i % len(GRADIENTS)]
+        playlists.append({
+            "name": name,
+            "colors": color_scheme
+        })
+    return playlists
+
 
 explore = [
         {'name': 'Funky HIIT'},
@@ -194,7 +229,7 @@ def home():
                            title='Home',
                            week=calendar_data(),
                            today=datetime.today().date().day,
-                           playlists=playlists,
+                           playlists=get_playlists(),
                            explore=explore)
 
 def calendar_data():
@@ -214,33 +249,55 @@ def calendar_data():
         today += timedelta(days=1)
     return weekdays
 
+@app.route("/playlist/<playlist>")
+def workout(playlist):
+    length = request.args.get("length", 30)
+    return render_template("playlist.html", playlist=playlist, length=length)
 
+@app.route("/training/<playlist>")
+def training_api(playlist):  # <-- zmieniona nazwa funkcji
+    exercise_length = request.args.get("length", 30)
+    plan = generate_training_plan(playlist, exercise_length)
+    return jsonify(plan)
+
+#
+# @app.route('/training')
+# def training():
+#     return render_template('index.html',
+#                            title='Home',
+#                            week=calendar_data(),
+#                            today=datetime.today().date().day,
+#                            playlists=playlists,
+#                            explore=explore)
+#
+# @app.route('/statistics')
+# def statistics():
+#     return render_template('index.html',
+#                            title='Home',
+#                            week=calendar_data(),
+#                            today=datetime.today().date().day,
+#                            playlists=playlists,
+#                            explore=explore)
+#
+# @app.route('/settings')
+# def settings():
+#     return render_template('index.html',
+#                            title='Home',
+#                            week=calendar_data(),
+#                            today=datetime.today().date().day,
+#                            playlists=playlists,
+#                            explore=explore)
 @app.route('/training')
 def training():
-    return render_template('index.html',
-                           title='Home',
-                           week=calendar_data(),
-                           today=datetime.today().date().day,
-                           playlists=playlists,
-                           explore=explore)
+    return '', 204
 
 @app.route('/statistics')
 def statistics():
-    return render_template('index.html',
-                           title='Home',
-                           week=calendar_data(),
-                           today=datetime.today().date().day,
-                           playlists=playlists,
-                           explore=explore)
+    return '', 204
 
 @app.route('/settings')
 def settings():
-    return render_template('index.html',
-                           title='Home',
-                           week=calendar_data(),
-                           today=datetime.today().date().day,
-                           playlists=playlists,
-                           explore=explore)
+    return '', 204
 
 if __name__ == '__main__':
     app.run(debug=True)
