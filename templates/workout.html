@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Player</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 40px; }
+    #exercise { font-size: 2em; margin-top: 20px; }
+    #timer { font-size: 1.5em; color: #555; }
+    /* prosty spinner */
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #4CAF50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin: 10px auto;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Playlist: {{ playlist }}</h1>
+  <audio id="player" controls></audio>
+  <div id="song"></div>
+  <div id="exercise"></div>
+  <div id="timer"></div>
+
+  <button id="startBtn">▶️ Start Workout</button>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <p>Analyzing your songs... Please wait 🎧</p>
+  </div>
+
+  <script>
+    const playlist = "{{ playlist }}";
+    const exerciseLength = parseInt("{{ length }}");
+
+    const startBtn = document.getElementById('startBtn');
+    const loadingDiv = document.getElementById('loading');
+
+    startBtn.addEventListener('click', startWorkout);
+
+    async function startWorkout() {
+      // 🔹 pokaż komunikat "Analyzing..."
+      startBtn.disabled = true;
+      loadingDiv.style.display = "block";
+
+      // 🔹 pobierz plan treningowy z backendu
+      const res = await fetch(`/training/${playlist}?length=${exerciseLength}`);
+      const plan = await res.json();
+
+      // 🔹 ukryj komunikat po zakończeniu analizy
+      loadingDiv.style.display = "none";
+
+      const player = document.getElementById('player');
+      const songDiv = document.getElementById('song');
+      const exerciseDiv = document.getElementById('exercise');
+      const timerDiv = document.getElementById('timer');
+
+      // 🔹 rozpocznij trening
+      for (const [song, exercises] of Object.entries(plan)) {
+        songDiv.textContent = `🎵 Now playing: ${song}`;
+        player.src = `/songs/${playlist}/${song}`;
+        await player.play();
+
+        for (const ex of exercises) {
+          exerciseDiv.textContent = `🏋️ ${ex}`;
+          for (let t = exerciseLength; t >= 0; t--) {
+            timerDiv.textContent = `⏳ ${t}s left`;
+            await new Promise(r => setTimeout(r, 1000));
+            if (player.ended) break;
+          }
+        }
+
+        player.pause();
+      }
+
+      exerciseDiv.textContent = "✅ Workout complete!";
+      timerDiv.textContent = "";
+      startBtn.disabled = false;
+    }
+  </script>
+</body>
+</html>
