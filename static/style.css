@@ -19,7 +19,7 @@
 
  body {
      /*font-family: lilita-one-regular, sans-serif;*/
-    /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /*font-family: "Lilita One", sans-serif;*/
      /*font-family: 'Bebas Neue', sans-serif;*/
      /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
@@ -162,12 +162,12 @@
 /* ---------- SECTIONS ---------- */
  .section {
      max-width: 1200px;
-     margin: 0 auto 3rem;
+     margin: 0 auto 0rem;
      padding: 2rem 2rem 0rem 2rem; // tutaj zmienić drugą wartość aby nie było miejsca z lewej
 }
  .section-title {
      /*font-family: 'Bebas Neue', sans-serif;*/
-     font-size: 5vh;
+     font-size: 4.5vh;
      letter-spacing: 1px;
      margin-bottom: 1.5rem;
      color: black;
@@ -259,7 +259,7 @@
  .card-title {
      color: #fff;
      font-weight: 700;
-     font-size: 4rem;
+     font-size: 3rem;
      text-align: center;
      padding: 0.5rem 0 0.5rem 0;
 }
