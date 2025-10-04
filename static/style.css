@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+/* ---------- CSS RESET ---------- */
+ *, *::before, *::after {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+}
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+/* .lilita-one-regular {*/
+/*  font-family: "Lilita One", sans-serif;*/
+/*  font-weight: 400;*/
+/*  font-style: normal;*/
+/*}*/
+
+ body {
+     /*font-family: lilita-one-regular, sans-serif;*/
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*font-family: "Lilita One", sans-serif;*/
+     /*font-family: 'Bebas Neue', sans-serif;*/
+     /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
+     background: #ffffff;
+     min-height: 100vh;
+     /*padding: 2rem;*/
+}
+
+ img {
+     top: 0;
+     max-width: 100%;
+     position: relative;
+ }
+
+ .week-container {
+
+     max-width: 1200px;
+     margin: 2rem 2rem 2rem 2rem;
+     padding-top: .5rem;
+     padding-bottom: 1rem;
+     background: #e3e6ec;
+     border-radius: 2rem;
+}
+ .week-title {
+     text-align: center;
+    /*padding-left: 7rem;
+    */
+     color: black;
+     font-size: 4vh;
+     margin-bottom: 1rem;
+     font-weight: bold;
+     letter-spacing: 1px;
+}
+ .days-grid {
+     display: flex;
+     justify-content: space-between;
+     gap: 1rem;
+     padding: 0 2rem;
+     flex-wrap: wrap;
+}
+ .day-item {
+     display: flex;
+     flex: 1;
+     min-width: 80px;
+     flex-direction: column;
+     align-items: center;
+     gap: 0.5rem;
+     height: 4vh;
+     cursor: pointer;
+     transition: transform 0.3s ease;
+}
+ .day-item:hover {
+     transform: translateY(-5px);
+}
+/*.day-name {
+    */
+    /* color: black;
+    */
+    /* font-size: 0.9rem;
+    */
+    /* font-weight: 500;
+    */
+    /* text-transform: uppercase;
+    */
+    /* letter-spacing: 1px;
+    */
+    /*
+}
+*/
+ .day-circle {
+     width: 4vh;
+     height: 4vh;
+     border-radius: 50%;
+     background: none;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 3vh;
+     font-weight: 600;
+     color: black;
+    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    */
+     transition: all 0.3s ease;
+}
+ .day-item:hover .day-circle {
+     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+     transform: scale(1.05);
+}
+ .day-item.today .day-circle {
+     background: none;
+     color: #350170;
+     box-shadow: 0 6px 25px #350170;
+}
+ .day-item.today .day-name {
+     color: #fff;
+     font-weight: 700;
+}
+ .day-item.future .day-circle {
+     background: none;
+     color: #a6a6a6;
+    /*box-shadow: 0 6px 25px #a6a6a6;
+    */
+}
+ .day-item.future .day-name {
+     color: #fff;
+     font-weight: 700;
+}
+ .day-item.done .day-circle {
+     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+     color: #ffffff;
+     background: #802e56;
+     box-shadow: 0 6px 25px #802e56;
+}
+ .day-item.done .day-name {
+     color: #fff;
+     font-weight: 700;
+}
+ .day-item.done .day-circle::before {
+     content: '✓';
+     position: absolute;
+     font-size: 3vh;
+     color: white;
+}
+ @media (max-width: 768px) {
+     .days-grid {
+         gap: 1rem;
+    }
+     .day-circle {
+         width: 60px;
+         height: 60px;
+         font-size: 1.4rem;
+    }
+     .day-name {
+         font-size: 0.75rem;
+    }
+     .week-title {
+         font-size: 1.5rem;
+    }
+}
+/* ---------- SECTIONS ---------- */
+ .section {
+     max-width: 1200px;
+     margin: 0 auto 0rem;
+     padding: 2rem 2rem 0rem 2rem; // tutaj zmienić drugą wartość aby nie było miejsca z lewej
+}
+ .section-title {
+     /*font-family: 'Bebas Neue', sans-serif;*/
+     font-size: 4.5vh;
+     letter-spacing: 1px;
+     margin-bottom: 1.5rem;
+     color: black;
+}
+/* ---------- PLAYLISTS (SCROLLABLE) ---------- */
+ .scrollable-grid {
+     display: flex;
+     gap: 1.5rem;
+     overflow-x: visible;
+     overflow-y: hidden;
+     scroll-behavior: smooth;
+     height: 20vh;
+     padding-bottom: 1rem;
+     scrollbar-width: none;
+    /* Firefox */
+     -ms-overflow-style: none;
+    /* IE/Edge */
+}
+ .scrollable-grid::-webkit-scrollbar {
+     display: none;
+    /* Chrome, Safari, Opera */
+}
+ .scrollable-grid .card {
+     min-width: 180px;
+     flex-shrink: 0;
+}
+/* ---------- EXPLORE (GRID) ---------- */
+ .cards-grid {
+     display: flex;
+     justify-content: center;
+     grid-template-columns: repeat(auto-fill, minmax(180px, 400px));
+     gap: 1.5rem;
+}
+/* ---------- CARDS ---------- */
+.playlist {
+     background: linear-gradient(#350170, #8b4367);
+}
+
+ .card {
+     /*background: #8b4367;*/
+     border-radius: 1.5rem;
+     padding: 1.5rem;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     aspect-ratio: 1;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     position: relative;
+     overflow: hidden;
+}
+ .card:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+ .card.add-new {
+     background: #e0e0e0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+ .add-icon {
+     width: 60px;
+     height: 60px;
+     border-radius: 50%;
+     background: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 3rem;
+     color: #999;
+     font-weight: 300;
+}
+ .card-images {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 0.5rem;
+}
+ .card-image {
+     /*justify-self: center;*/
+     width: 80%;
+     aspect-ratio: 1;
+     background: #fff;
+     border-radius: 0.5rem;
+     object-fit: cover;
+}
+  .card-image:nth-child(odd) {
+     justify-self: right;
+}
+  .card-image:nth-child(even) {
+     justify-self: left;
+}
+ .card-title {
+     color: #fff;
+     font-weight: 700;
+     font-size: 3rem;
+     text-align: center;
+     padding: 0.5rem 0 0.5rem 0;
+}
+/* ---------- EXPLORE CARDS ---------- */
+ .explore-card {
+     background: linear-gradient(#8b4367, #350170);
+     position: relative;
+     height: 20vh;
+     width: 100%;
+}
+ .waveform {
+     position: absolute;
+     top: 40%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     width: 80%;
+     height: 80px;
+     display: flex;
+     align-items: center;
+     justify-content: space-around;
+}
+ .wave-bar {
+     width: 12px;
+     background: rgba(0, 0, 0, 0.3);
+     border-radius: 2px;
+     animation: wave 1s ease-in-out infinite;
+}
+ .wave-bar:nth-child(1) {
+     height: 40px;
+     animation-delay: 0s;
+}
+ .wave-bar:nth-child(2) {
+     height: 55px;
+     animation-delay: 0.1s;
+}
+ .wave-bar:nth-child(3) {
+     height: 65px;
+     animation-delay: 0.2s;
+}
+ .wave-bar:nth-child(4) {
+     height: 50px;
+     animation-delay: 0.3s;
+}
+ .wave-bar:nth-child(5) {
+     height: 70px;
+     animation-delay: 0.4s;
+}
+ .wave-bar:nth-child(6) {
+     height: 60px;
+     animation-delay: 0.5s;
+}
+ .wave-bar:nth-child(7) {
+     height: 55px;
+     animation-delay: 0.6s;
+}
+ .wave-bar:nth-child(8) {
+     height: 65px;
+     animation-delay: 0.7s;
+}
+ .wave-bar:nth-child(9) {
+     height: 45px;
+     animation-delay: 0.8s;
+}
+ .wave-bar:nth-child(10) {
+     height: 50px;
+     animation-delay: 0.9s;
+}
+ @keyframes wave {
+     0%, 100% {
+         transform: scaleY(1);
+    }
+     50% {
+         transform: scaleY(2);
+    }
+}
+ .explore-title {
+     position: relative;
+     z-index: 1;
+     color: #fff;
+     font-weight: 700;
+     font-size: 4rem;
+     text-align: center;
+     margin-top: auto;
+}
+/* ---------- RESPONSIVE ---------- */
+ @media (max-width: 768px) {
+     .days-grid {
+         gap: 0.5rem;
+    }
+     .day-circle {
+         width: 60px;
+         height: 60px;
+         font-size: 1.4rem;
+    }
+     .cards-grid {
+         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+         gap: 1rem;
+    }
+     .scrollable-grid .card {
+         min-width: 140px;
+    }
+     .section-title, .week-title {
+         font-size: 1.5rem;
+    }
+     .card {
+         padding: 1rem;
+    }
+     .card-title, .explore-title {
+         font-size: 0.9rem;
+    }
+}
+/* ---------- NAV-BAR ---------- */
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: #a6a6a6 solid 20px;
+    border-radius: 15px;
+    background: #e3e6ec;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    height: 10vh;
+}
+
+.nav-bar a {
+    z-index: 100000;
+    height: 80%;
+    flex: 1;
+    text-align: center;
+}
+
+.nav-bar a img {
+    filter: brightness(0) saturate(100%);
+    z-index: 100000;
+    height: 80%;
+    flex: 1;
+    text-align: center;
+}
+
