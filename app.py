@@ -4,8 +4,7 @@ import collections
 import math
 from mutagen import File
 import random
-import pygame
-import time
+
 from exercise_base import exercise_40, exercise_60, exercise_80, exercise_100, exercise_120, exercise_140, exercise_160
 
 if not hasattr(collections, 'MutableSequence'):
@@ -294,4 +293,4 @@ def settings():
     return '', 204
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int('5000'), debug=True)

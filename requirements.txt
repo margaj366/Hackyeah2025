@@ -11,7 +11,9 @@ wheel>=0.38.0
 madmom==0.16.1
 
 # Nasz kochant Flask
-flask
+Flask>=2.3.0
 
 # (opcjonalnie) narzędzia audio
 ffmpeg-python
+mutagen
+# dodane pod docker
