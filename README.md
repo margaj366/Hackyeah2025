@@ -29,6 +29,11 @@ to run just clone repo and run:
 ```bash
 pip install -r requirements.txt
 ```
+make sure You have ffmpeg installed:
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
 then just
 ```bash
 flask run
