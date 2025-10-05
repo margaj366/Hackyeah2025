@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  text-align: center;
+  align-items: center;
+  padding: 40px;
+}
+
+/* 🎵 KAFEL GŁÓWNY */
+.playlist-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(#8b4367, #350170);
+  border-radius: 20px;
+  color: white;
+  padding: 10px 20px;
+  /*width: 350px;*/
+  /*max-width: 350px;*/
+  width: 70%;
+  max-width: 900px;
+  margin: 30px auto 20px auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Miniatury (kolory / obrazki) */
+.card-images {
+  display: grid;
+  grid-template-columns: repeat(2, 40px);
+  grid-template-rows: repeat(2, 40px);
+  gap: 4px;
+}
+
+.card-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+/* Tekst po prawej od miniatur */
+.card-info {
+  text-align: left;
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.card-title {
+  font-weight: bold;
+  color: white;
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+
+
+/* Ikonka play */
+.card-play img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.training-plan {
+  /*width: 350px;*/
+  /*max-width: 350px;*/
+  /*margin-top: 30px;*/
+  width: 70%;
+  max-width: 900px;
+  margin: 30px auto 30px auto;
+  text-align: left;
+  /*max-width: 600px;*/
+  margin-inline: auto;
+  background: linear-gradient(#B980FF, #C76DA9);
+  border-radius: 1.5rem;
+  padding: 10px 20px 10px 20px;
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.training-plan h1 {
+  color: white;
+  font-size: 3.5em;
+  text-align: center;
+}
+
+.song-block {
+  margin-bottom: 20px;
+}
+
+.song-block h2 {
+  color: #350170;
+  margin-bottom: 8px;
+  font-size: 2em;
+}
+
+.song-block ul {
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+.song-block li {
+  margin: 4px 0;
+  padding: 10px 10px 10px 10px;
+  color: #8b4367;
+  background-color: #9FA8FF;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+/* 🔘 Przyciski */
+.buttons {
+  margin-top: 40px;
+  position: fixed;
+}
+
+.btn, .back-btn {
+  text-decoration: none;
+  color: white;
+  /*padding: 12px 24px;*/
+  /*border-radius: 10px;*/
+  margin: 0 10px;
+  display: inline-block;
+  font-weight: bold;
+  transition: 0.3s;
+  font-size: 3em;
+  padding: 12px 24px;
+  border-radius: 20px;
+}
+
+.btn {
+  background: linear-gradient(#8b4367, #350170);
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+.back-btn {
+  background: #999;
+}
