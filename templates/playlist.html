@@ -3,13 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <title>{{ playlist }} - Training Plan</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='playlist.css') }}">
 </head>
 <body>
-  <h1>Training Plan for <span style="color:#43e97b">{{ playlist }}</span></h1>
-  <p>Exercise length: {{ length }} seconds</p>
+{#  <h1>Training Plan for <span style="color:#43e97b">{{ playlist }}</span></h1>#}
+{#  <p>Exercise length: {{ length }} seconds</p>#}
+<div class="playlist-card">
+    <div class="card-images">
+      {% for color in [
+        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+    ] %}
+        <div class="card-image" style="background: {{ color }};"></div>
+      {% endfor %}
+    </div>
+
+    <div class="card-info">
+      <div class="card-title">{{ playlist | upper }}</div>
+    </div>
+
+    <div class="card-play">
+      <img src="{{ url_for('static', filename='play_icon.webp') }}" alt="Play">
+    </div>
+  </div>
 
   <div class="training-plan">
+  <h1>WORKOUT PLAN</h1>
     {% for song, exercises in plan %}
       <div class="song-block">
         <h2>{{ song }}</h2>
@@ -22,8 +43,8 @@
     {% endfor %}
   </div>
 
-<a href="{{ url_for('workout_page', playlist=playlist, length=length) }}" class="btn">▶ Start Workout</a>
+<a href="{{ url_for('workout_page', playlist=playlist, length=length) }}" class="btn">Accept</a>
 
-  <a href="{{ url_for('home') }}" class="back-btn">← Back to playlists</a>
+  <a href="{{ url_for('home') }}" class="back-btn">Back to playlists</a>
 </body>
 </html>

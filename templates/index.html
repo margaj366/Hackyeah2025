@@ -212,7 +212,8 @@
 <div id="lengthModal" class="modal">
   <div class="modal-content">
     <h2 id="modal-title">Enter workout length</h2>
-    <input type="number" id="exercise-length" placeholder="Time of each exercise [s]" value="30" min="10">
+      <h3>Enter duration of each exercise (in seconds)</h3>
+    <input type="number" id="exercise-length" placeholder="Exercise duration" value="30" min="10">
     <div class="modal-buttons">
       <button id="start-btn">Start</button>
       <button id="cancel-btn" class="cancel">Cancel</button>
@@ -231,7 +232,7 @@
 
   function selectPlaylist(name) {
     selectedPlaylist = name;
-    document.getElementById("modal-title").innerText = `Workout: ${name}`;
+    document.getElementById("modal-title").innerText = `Workout to playlist: ${name}`;
     document.getElementById("lengthModal").style.display = "flex";
   }
 
