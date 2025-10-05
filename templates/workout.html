@@ -3,27 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <title>Workout Player</title>
-<script src="https://unpkg.com/lottie-web@latest/build/player/lottie.min.js"></script>
+    <script src="https://unpkg.com/lottie-web@latest/build/player/lottie.min.js"></script>
   <style>
-    body { font-family: Arial; text-align: center; padding: 40px; }
+    body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0;text-align: center; justify-content: center; min-height: 100vh;}
     #exercise { font-size: 2em; margin-top: 20px; }
     #timer { font-size: 1.5em; color: #555; }
     .spinner {
       border: 5px solid #f3f3f3;
-      border-top: 5px solid #4CAF50;
+      border-top: 5px solid #350170;
       border-radius: 50%;
       width: 40px;
       height: 40px;
-      margin: 10px auto;
+      margin: 0px;
+      font-size: 2em;
       animation: spin 1s linear infinite;
+    }
+
+     img {
+     top: 0;
+     max-width: 100%;
+     position: relative;
+    }
+
+    .player-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(#8b4367, #350170);
+      border-radius: 20px;
+      padding: 15px;
+      margin: 20px auto;
+      /*max-width: 350px;*/
+        min-width: 70vw;
+        font-size: 2em;
+        max-width: 80vw;
+
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Tytuł piosenki */
+    #song {
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+        color: white;
+    }
+
+    /* Stylizowany pasek audio */
+    #player {
+      width: 60vw;
+      accent-color: #350170;
+    }
+    #anim {
+      width: 60vw;
+      height: 60vw;
+      margin: 10px auto;
+      display: block;
+    }
+
+    #exercise {
+      font-size: 2em;
+      font-weight: 800;
+      text-align: center;
+      margin: 15px 0 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #8b4367, #350170);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 0.6s ease;
+    }
+
+    /* Opcjonalne: timer pod ćwiczeniem */
+    #timer {
+      text-align: center;
+      font-size: 2em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    audio::-webkit-media-controls-panel {
+      background: #a6a6a6;
+      color: #8b4367;
+    }
+
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-mute-button,
+    audio::-webkit-media-controls-timeline,
+    audio::-webkit-media-controls-volume-slider {
+      filter: invert(1);
+    }
+
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+      color: #350170;
+        font-size: 1.5em;
+    }
+    h1 {
+      font-size: 1.8em;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin: 20px 0;
+      background: linear-gradient(90deg, #7d2b77, #3b0a45);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+    /* ---------- NAV-BAR ---------- */
+    .nav-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: #a6a6a6 solid 20px;
+        border-radius: 15px;
+        background: #e3e6ec;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        height: 10vh;
+    }
+
+    .nav-bar a {
+        z-index: 100000;
+        height: 80%;
+        flex: 1;
+        text-align: center;
+    }
+
+    .nav-bar a img {
+        filter: brightness(0) saturate(100%);
+        z-index: 100000;
+        height: 80%;
+        flex: 1;
+        text-align: center;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
   </style>
+<!--  <link rel="stylesheet" href="{{ url_for('static', filename='workout.css') }}">-->
 </head>
 <body>
+    <img src="/static/logo.svg" alt="logo">
+
   <h1>Playlist: {{ playlist }}</h1>
 
   <div id="anim"></div>
@@ -31,22 +160,34 @@
   <div id="start-screen">
     <h2>Ready to start your workout?</h2>
     <button id="beginBtn" style="
-      background-color: #43e97b;
+      background: linear-gradient(#8b4367, #350170);
       border: none;
-      padding: 15px 30px;
-      font-size: 1.2em;
+      font-size: 5em;
       color: white;
       border-radius: 10px;
+      padding: 10px;
       cursor: pointer;
-      margin-top: 20px;
-    ">▶️ Start Workout</button>
+    ">▶Start Workout</button>
   </div>
 
   <div id="workout" style="display:none;">
-    <audio id="player" controls></audio>
-    <div id="song"></div>
-    <div id="exercise"></div>
-    <div id="timer"></div>
+      <div id="exercise"></div>
+      <div class="player-container">
+          <div id="song"></div>
+          <audio id="player" controls></audio>
+      </div>
+
+      <div id="timer"></div>
+  </div>
+
+   <!-- NAV BAR -->
+  <div class="nav-bar">
+    <a href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='home.svg') }}" alt="home">
+    </a>
+    <a href="{{ url_for('statistics') }}">
+        <img src="../static/statistics.svg" alt="stats">
+    </a>
   </div>
 
   <script>
@@ -78,12 +219,12 @@
 
     async function startWorkout() {
       for (const [song, exercises] of plan) {
-        songDiv.textContent = `🎵 Now playing: ${song}`;
+        songDiv.textContent = `${song}`;
         player.src = `/songs/{{ playlist }}/${song}`;
         await player.play();
 
         for (const ex of exercises) {
-          exerciseDiv.textContent = `🏋️ ${ex}`;
+          exerciseDiv.textContent = `${ex}`;
           for (let t = exerciseLength; t >= 0; t--) {
             timerDiv.textContent = `⏳ ${t}s left`;
             await new Promise(r => setTimeout(r, 1000));
@@ -101,3 +242,4 @@
 </body>
 
 </html>
+
