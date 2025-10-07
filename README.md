@@ -5,6 +5,8 @@ Fit2Beat works other way around!
 
 Provide your playlists, and our app will create personalized training which fits perfectly your music taste! 
 
+[App link](https://fit2beat.toadres.pl)
+
 ## 📽️ Presentation
 (technical info below)
 <img src="presentation/1.png">
@@ -41,6 +43,9 @@ flask run
 
 ## ❗Important
 App has been developed for phones, and doesn't really support horizontal resolutions
+
+## Results 
+We scored 3.9/5! As first-time hackathon participants, we're proud of ourselves!
 
 ## 📬 Authors
 Created by [Natalia Dybczak](https://github.com/nataliadybczak), [Jagoda Flejmer](https://github.com/jFlamer), [Martyna Gaj](https://github.com/margaj366) and [Jakub Kierznowski](https://github.com/qualv13) for hackathon "HackYeah 2025" in Cracow
